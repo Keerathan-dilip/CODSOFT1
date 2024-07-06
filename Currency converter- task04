@@ -1,0 +1,53 @@
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Scanner;
+
+public class CurrencyConverter {
+    private static Map<String, Double> currencyRates = new HashMap<>();
+
+    static {
+        // Initialize currency rates (example rates, 1 USD equivalent)
+        currencyRates.put("USD", 1.0);
+        currencyRates.put("EUR", 0.85);
+        currencyRates.put("GBP", 0.75);
+        currencyRates.put("INR", 74.50);
+        currencyRates.put("JPY", 110.25);
+    }
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("Welcome to the Currency Converter!");
+        System.out.println("Available currencies: USD, EUR, GBP, INR, JPY");
+
+        System.out.print("Enter the source currency: ");
+        String sourceCurrency = scanner.nextLine().toUpperCase();
+
+        if (!currencyRates.containsKey(sourceCurrency)) {
+            System.out.println("Invalid source currency.");
+            return;
+        }
+
+        System.out.print("Enter the target currency: ");
+        String targetCurrency = scanner.nextLine().toUpperCase();
+
+        if (!currencyRates.containsKey(targetCurrency)) {
+            System.out.println("Invalid target currency.");
+            return;
+        }
+
+        System.out.print("Enter the amount to convert: ");
+        double amount = scanner.nextDouble();
+
+        double convertedAmount = convertCurrency(sourceCurrency, targetCurrency, amount);
+        System.out.printf("%.2f %s is equal to %.2f %s%n", amount, sourceCurrency, convertedAmount, targetCurrency);
+        
+        scanner.close();
+    }
+
+    private static double convertCurrency(String sourceCurrency, String targetCurrency, double amount) {
+        double sourceRate = currencyRates.get(sourceCurrency);
+        double targetRate = currencyRates.get(targetCurrency);
+        return amount * (targetRate / sourceRate);
+    }
+}
