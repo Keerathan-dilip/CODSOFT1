@@ -1,0 +1,46 @@
+import java.util.Scanner;
+import java.util.Random;
+public class NumberGame
+{
+    public static void main (String args[])
+    {
+        Scanner sc=new Scanner(System.in);
+        Random random= new Random();
+        int randomNumber=random.nextInt(100)-1;
+        int attempts=5;
+        int score=10;
+        System.out.println("welcome to number game");
+        System.out.println("Enter any number between 1 to 100 for the number game");
+        while(attempts>0)
+        { 
+            System.out.println("you have "+attempts+" attempts left");
+            System.out.println("enter your guess number ");
+            int guess= sc.nextInt();
+            if(guess==randomNumber)
+            {
+                System.out.println(" you have guessed the correct number");
+                break;
+            }
+            else
+            {
+                System.out.println("wrong guess");
+                if(guess<randomNumber)
+                {
+                    System.out.println("hint: try higher number");
+                }
+                else
+                {
+                    System.out.println("hint: try lower number");
+                }
+                attempts--;
+                score-=2;//because each guess contains 2 points
+            }
+        }
+        if(attempts==0)
+        {
+            System.out.println("sorry, you have run out of attempts ");
+            System.out.println("the correct number was "+randomNumber);
+        }
+        System.out.println("your score is:"+score);
+    }
+}
